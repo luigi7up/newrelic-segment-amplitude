@@ -4,9 +4,9 @@
   <div class="body-wrapper">
    
     <AppHeader />            
-    <div class="navigation-and-main-wrapper">
-      <AppNavigation />              
-    </div>
+    
+    <AppNavigation />              
+    
   </div>
 
 </template>
@@ -101,7 +101,7 @@ export default {
       console.log(globalState.value.currentUser.email)
       console.log(globalState.value.currentUser.ab_tests)
 
-      eventsNotification(`Event "Identify"`, "This is the identify event provided by Segment that sets the userId and maps it to the anonymous id. User was identified as "+globalState.value.currentUser.id, "")
+      eventsNotification(`Special event "Identify"`, "This is the identify event provided by Segment that sets the userId and maps it to the anonymous id. User was identified as "+globalState.value.currentUser.id, "")
 
       window.analytics.track("User Logged In", {}, 
         {

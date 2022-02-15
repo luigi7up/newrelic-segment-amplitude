@@ -10,9 +10,7 @@
   
   <h2 class="title is-4">Logs Overview</h2>
   
-  <p>
-    Logs Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, laborum. Logs Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias veniam, repellat quidem minima iste nobis voluptatem laudantium itaque. Sunt, eos.
-  </p>
+  <img src="@/assets/logs.png">
   
   
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
