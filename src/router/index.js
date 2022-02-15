@@ -3,12 +3,20 @@ import Home from '../views/Home.vue'
 import Logs from '../views/Logs.vue'
 import Apm from '../views/Apm.vue'
 import Dashboards from '../views/Dashboards.vue'
+import DashboardShow from '../views/DashboardShow.vue'
 import Alerts from '../views/Alerts.vue'
+import QueryAndExplore from '../views/QueryAndExplore.vue'
+import Infrastructure from '../views/Infrastructure.vue'
 
 
 
 const routes = [
+  
   {
+    path: '/query-and-explore',
+    name: 'QueryAndExplore',
+    component: QueryAndExplore
+  },{
     path: '/',
     name: 'Home',
     component: Home
@@ -17,9 +25,13 @@ const routes = [
     name: 'Apm',
     component: Apm
   },{
+    path: '/dashboards/:id',
+    name: 'DashboardShow',
+    component: DashboardShow
+  },{
     path: '/dashboards',
-    name: 'Dashboards',
-    component: Dashboards
+    name: 'DashboardsIndex',
+    component: Dashboards,
   },{
     path: '/logs',
     name: 'Logs',
@@ -28,15 +40,12 @@ const routes = [
     path: '/alerts',
     name: 'Alerts',
     component: Alerts
+  },{
+    path: '/infrastructure',
+    name: 'Infrastructure',
+    component: Infrastructure
   },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
+
 ]
 
 const router = createRouter({

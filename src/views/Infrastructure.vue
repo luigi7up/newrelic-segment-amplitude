@@ -8,7 +8,8 @@
     </ul>
   </div> -->
   
-  <h2 class="title is-4">Logs Overview</h2>
+  <h2 class="title is-4">Infrastructure</h2>
+  <img src="@/assets/infrastructure.png">
   
   <p>
     Logs Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, laborum. Logs Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias veniam, repellat quidem minima iste nobis voluptatem laudantium itaque. Sunt, eos.
@@ -23,12 +24,22 @@
 </template>
 
 <script>
+
+  import { useRoute } from 'vue-router';
+
   export default {
-  
-    setup(){},
+    props: ['id'],
+    setup(props){
+      const route = useRoute()
+      return {subPath: route.params.id}
+      
+    },
     mounted(){
-      console.log('Mounted: Logs')
-      //window.analytics.page('Visited Logs')
+      console.log("Mounted: Infrastructure")
+      // const router = useRoute()
+      // console.log('Analytics: Dashboards')
+      // window.analytics.page('Visited Dashboards')
+      // return {subPath: router.path}
     }
   }
 </script>

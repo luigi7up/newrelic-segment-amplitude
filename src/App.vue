@@ -1,68 +1,58 @@
 
 <template>
-  <div class="body-wrapper">
+  <n-loading-bar-provider>
+    <n-message-provider>
+      <n-notification-provider placement="bottom-right">
+        <n-dialog-provider>
+          
+          <GlobalWrapperComponent />
 
-    <!-- App.vue -->
-    <AppHeader />
-    
-    
-    <div class="navigation-and-main-wrapper">
-
-      <n-loading-bar-provider>
-        <n-message-provider>
-          <n-notification-provider>
-            <n-dialog-provider>
-              <AppNavigation />              
-            </n-dialog-provider>
-          </n-notification-provider>
-        </n-message-provider>
-      </n-loading-bar-provider>
-
-    </div>
-
-  </div>
-
+        </n-dialog-provider>
+      </n-notification-provider>
+    </n-message-provider>
+  </n-loading-bar-provider>
 
 </template>
 
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
-import AppHeader from '@/components/layout/AppHeader.vue'
-import AppNavigation from '@/components/layout/AppNavigation.vue'
+
+import GlobalWrapperComponent from '@/components/layout/GlobalWrapperComponent.vue'
+import {ref, provide, watch} from 'vue'
 
 
 export default {
   name: 'App',
   components: {
-    AppHeader,
-    AppNavigation
-  }
+    GlobalWrapperComponent
+
+  },
+  setup() {
+    
+    const globalState = ref(null)
+
+    globalState.value = {
+
+      users: [
+        { name: "Michael", email: "michael@theoffice.com", id: "michael123" , ab_tests: {test_remove_console: "verA", test_no_paywall: "verB"} },
+        { name: "Dwigth", email: "dwight@theoffice.com", id: "dwight123", ab_tests: {test_remove_console: "verB", test_no_paywall: "verA"} },
+        { name: "Andy", email: "andy@theoffice.com", id: "andy123", ab_tests: {test_remove_console: "verB", test_no_paywall: "verA"} },
+        { name: "Angela", email: "angela@theoffice.com", id: "angela123", ab_tests: {test_remove_console: "verB", test_no_paywall: "verB"} },
+      ],
+      currentUser: null
+    }
+
+    provide('globalState', globalState)    
+
+  },  
 }
+
+
 </script>
 
 
 
 <style lang="scss">
-// #app {
-//   font-family: Avenir, Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-// }
 
-// #nav {
-//   padding: 30px;
-
-//   a {
-//     font-weight: bold;
-//     color: #2c3e50;
-
-//     &.router-link-exact-active {
-//       color: #42b983;
-//     }
-//   }
-// }
 </style>

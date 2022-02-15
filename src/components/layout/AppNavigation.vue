@@ -22,6 +22,7 @@
 			:collapsed-icon-size="22"
 			:options="menuOptions"
 			v-model:value="activeKey"
+			@click="handleClick"
 			/>
 		</n-layout-sider>
 			
@@ -40,12 +41,12 @@
 <script>
 
 import {useRouter} from 'vue-router'
-import { defineComponent, h, resolveComponent, ref } from 'vue'
+import { defineComponent, h, resolveComponent, ref, inject } from 'vue'
 import { NIcon, useMessage } from 'naive-ui'
 import { AlertCircleOutline, Analytics, AnalyticsOutline, 
 	AppsOutline, BarChartOutline, BookOutline as BookIcon, PersonOutline as PersonIcon, 
-	StarOutline,AddOutline,
-	FootstepsOutline, WineOutline as WineIcon} from '@vicons/ionicons5'
+	StarOutline, AddOutline, SearchCircleOutline,
+	FootstepsOutline, WineOutline as WineIcon, HardwareChipOutline} from '@vicons/ionicons5'
 import Breadcrumbs from './Breadcrumbs.vue'
 
 
@@ -57,6 +58,11 @@ function renderIcon (icon) {
 
 const menuOptions = [
   {
+    label: 'Query & Explore',
+    key: 'query-and-explore',
+	pathName: 'QueryAndExplore',
+    icon: renderIcon(SearchCircleOutline)
+  },{
     label: 'System overview',
     key: 'system-overview',
 		pathName: 'Home',
@@ -70,7 +76,7 @@ const menuOptions = [
 			{
 				label: 'Dashboards overview',
 				key: 'dashboards',
-				pathName: 'Dashboards',
+				pathName: 'DashboardsIndex',
 			},
 			{
 				type: 'group',
@@ -81,20 +87,20 @@ const menuOptions = [
 						label: 'Overall health',
 						key: 'Overall health',
 						icon: renderIcon(StarOutline),
-						pathName: 'Dashboards',
+						pathName: 'DashboardShow',
 						param: 'overall-health'
 					},
 					{
 						label: 'Backend services',
 						key: 'Backend services',
 						icon: renderIcon(StarOutline),
-						pathName: 'Dashboards',
+						pathName: 'DashboardShow',
 						param: 'backend-sevices'
 					},{
 						label: 'API endpoints',
 						key: 'API endpoints',
 						icon: renderIcon(StarOutline),
-						pathName: 'Dashboards',
+						pathName: 'DashboardShow',
 						param: 'api-endpoints'
 					}
 				]
@@ -106,15 +112,18 @@ const menuOptions = [
 					{
 						label: 'Tier 1 services',
 						key: 'Tier 1 services',
+						param: 'Tier 1 services'
 						// icon: renderIcon(StarOutline)
 					},
 					{
 						label: 'Tier 2 services',
-						key: 'Tier 2 services'
+						key: 'Tier 2 services',
+						param: 'Tier 2 services'
 						// icon: renderIcon(StarOutline)
 					},{
 						label: 'Tier 3 services',
-						key: 'Tier 3 services'
+						key: 'Tier 3 services',
+						param: 'Tier 3 services'
 						// icon: renderIcon(StarOutline)
 					}
 				]
@@ -191,32 +200,84 @@ const menuOptions = [
 		]},
 
 	{
-    label: 'Alerts',
-    key: 'alerts',
+		label: 'Alerts',
+		key: 'alerts',
 		pathName: 'Alerts',
-    icon: renderIcon(AlertCircleOutline)
+    	icon: renderIcon(AlertCircleOutline)
+  },{
+	  
+		label: 'Infrastructure',
+		key: 'infrastructure',
+		pathName: 'Infrastructure',
+		icon: renderIcon(HardwareChipOutline)
   },{
     label: 'More',
     key: 'more',
     icon: renderIcon(AddOutline),
 		children: [
 			{
-				label: 'More 1',
-    		key: 'more1',
-			},{
-				label: 'More 2',
-    		key: 'more2',
-			},{
-				label: 'More 3',
-    		key: 'more3',
-			},{
-				label: 'More 4',
-    		key: 'more4',
-			}
+				label: 'Mobile',
+				key: 'Mobile'
+			},
+			{
+				label: 'Synthetics',
+				key: 'Synthetics'
+			},
+			{
+				label: 'AWS Lambda Setup',
+				key: 'AWS Lambda Setup'
+			},
+			{
+				label: 'Key Transactions',
+				key: 'Key Transactions'
+			},
+			{
+				label: 'Kubernetes',
+				key: 'Kubernetes'
+			},
+			{
+				label: 'Lookout',
+				key: 'Lookout'
+			},
+			{
+				label: 'Manage Insights data',
+				key: 'Manage Insights data'
+			},
+			{
+				label: 'ML Model Monitoring',
+				key: 'ML Model Monitoring'
+			},
+			{
+				label: 'Network',
+				key: 'Network'
+			},
+			{
+				label: 'Serverless',
+				key: 'Serverless'
+			},
+			{
+				label: 'Service Levels',
+				key: 'Service Levels'
+			},
+			{
+				label: 'Beta',
+				key: 'Beta'
+			},
+			{
+				label: 'Service Maps',
+				key: 'Service Maps'
+			},
+			{
+				label: 'Traces',
+				key: 'Traces'
+			},
+			{
+				label: 'Workload views',
+				key: 'Workload views'
+			},
 		]
   }
 ]
-
 
 
 export default {
@@ -226,32 +287,43 @@ export default {
         msg: String
     },
     setup(){
-        const router = useRouter()
-
-				console.log('Sidebar Setup')
-        
-        const message = useMessage()
+        const router = useRouter()			
+		const eventsNotification = inject('eventsNotification');
+		console.log('Sidebar Setup')
+    
 
         return {
             activeKey: ref(null),
-            collapsed: ref(true),
+            collapsed: ref(false),
             menuOptions,
+			handleClick (a, b){
+
+				
+
+				
+			},
             handleUpdateValue (key, item){
-                message.info(`[onUpdate:value]: Key is ${JSON.stringify(key)}
-									Item is ${JSON.stringify(item)}
-									pathName is ${JSON.stringify(item.pathName)}
-									params is ${JSON.stringify(item.param)}`)
-									
-								
-								router.push({ name: item.pathName })
+				const analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}
+				console.log("Clicked Main Menu Item" )
+				console.dir(analyticsProps)
+				
+				window.analytics.track('Clicked Main Menu Item', analyticsProps)
+				eventsNotification(`Event "Clicked Main Menu Item"`, "Track: Clicked Main Menu Item", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
 							
-								// console.log(`Navigating to ${item.pathName} `)
+				
+				if(item.param){
+					router.push({ name: item.pathName, params: { id: item.param } }) // -> /user/eduardo
+				}else{
+					router.push({ name: item.pathName }) // -> /user/eduardo
+				}
+				
+								
 
             }
         }
     },
     mounted(){
-        console.log('Sidebar Mounted')
+        // console.log('Sidebar Mounted')
     }
 }
 

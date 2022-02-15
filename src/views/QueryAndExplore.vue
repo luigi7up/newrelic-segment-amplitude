@@ -8,12 +8,14 @@
     </ul>
   </div> -->
   
-  <h2 class="title is-4">Logs Overview</h2>
+  <h2 class="title is-4">Query and explore your data</h2>
+  <img src="@/assets/query.png">
   
   <p>
-    Logs Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, laborum. Logs Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias veniam, repellat quidem minima iste nobis voluptatem laudantium itaque. Sunt, eos.
+    Query...
   </p>
   
+
   
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <!-- <Header />
@@ -23,12 +25,16 @@
 </template>
 
 <script>
-  export default {
+
+
+ export default {
   
-    setup(){},
+    setup(){
+    //   console.log("Id props is "+props.id)
+    },
     mounted(){
-      console.log('Mounted: Logs')
-      //window.analytics.page('Visited Logs')
+      console.log('Mounted: Query Builder')
+      // window.analytics.page('Visited Explore & Query')
     }
   }
 </script>
