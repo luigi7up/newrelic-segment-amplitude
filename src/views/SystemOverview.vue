@@ -8,17 +8,15 @@
     </ul>
   </div> -->
   
-  <h2 class="title is-4">Alerts Overview</h2>
-
+  <h2 class="title is-4">System overview</h2>
 
   <div class="section-actions is-pulled-left mb-4">
     <n-space>
-      <n-button type="info" @click="handleCreateAlertClick">New Alert</n-button>
+      <n-button type="info" @click="handleAddDataClick">Add data</n-button>
     </n-space>
-
   </div>
   
-  <img src="@/assets/alerts.png">
+  <img src="@/assets/system-overview.png">
   
   
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
@@ -29,32 +27,36 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router'  
-import {inject} from 'vue'
- export default {
-  
+  import {inject} from 'vue'
+  import {useRouter} from 'vue-router'
+
+  export default {
+    name: 'SystemOverview',
+    components: {
+
+    },
     setup(){
 
       // Inject the method provided in GlobalWrapper
       const eventsNotification = inject('eventsNotification');
       const router = useRouter()
 
-      const handleCreateAlertClick = ()=>{
-        console.log("Clicked Create an Alert")
+      const handleAddDataClick = ()=>{
+        console.log("Clicked Add Data")
         const analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}
       
         console.dir(analyticsProps)
-        window.analytics.track('Clicked Create an Alert', analyticsProps)
-        eventsNotification(`Event "Clicked Create an Alert"`, "Track: Clicked Create an Alert", "Segment.js logged an analytics.track(), event that will show up in Amplitude as Clicked Create Dashboard with these properties: "+ JSON.stringify(analyticsProps))
+        window.analytics.track('Clicked Add Data', analyticsProps)
+        eventsNotification(`Event "Clicked Add Data"`, "Track: Clicked Add Data", "Segment.js logged an analytics.track(), event that will show up in Amplitude as Clicked Add Data with these properties: "+ JSON.stringify(analyticsProps))
 
       }
       return {
-        router, handleCreateAlertClick
+        router, handleAddDataClick
       }
     },
     mounted(){
-      console.log('Mounted: Alerts')
-      // window.analytics.page('Visited Alerts')
+      console.log('Analytics: SystemOverview')
+      //window.analytics.page('Visited SystemOverview')
     }
   }
 </script>

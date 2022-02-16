@@ -65,7 +65,7 @@ const menuOptions = [
   },{
     label: 'System overview',
     key: 'system-overview',
-		pathName: 'Home',
+		pathName: 'SystemOverview',
     icon: renderIcon(AppsOutline)
   },
 	{

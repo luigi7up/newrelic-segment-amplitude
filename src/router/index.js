@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import SystemOverview from '../views/SystemOverview.vue'
 import Logs from '../views/Logs.vue'
 import Apm from '../views/Apm.vue'
 import Dashboards from '../views/Dashboards.vue'
@@ -18,8 +18,8 @@ const routes = [
     component: QueryAndExplore
   },{
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'SystemOverview',
+    component: SystemOverview
   },{
     path: '/apm',
     name: 'Apm',
