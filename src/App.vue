@@ -22,26 +22,35 @@ import GlobalWrapperComponent from '@/components/layout/GlobalWrapperComponent.v
 import {ref, provide, watch} from 'vue'
 
 
+
 export default {
   name: 'App',
   components: {
     GlobalWrapperComponent
-
   },
   setup() {
     
     const globalState = ref(null)
 
     globalState.value = {
-
-      users: [
-        { name: "Michael", email: "michael@theoffice.com", id: "michael123" , ab_tests: {test_remove_console: "verA", test_no_paywall: "verB"} },
-        { name: "Dwigth", email: "dwight@theoffice.com", id: "dwight123", ab_tests: {test_remove_console: "verB", test_no_paywall: "verA"} },
-        { name: "Andy", email: "andy@theoffice.com", id: "andy123", ab_tests: {test_remove_console: "verB", test_no_paywall: "verA"} },
-        { name: "Angela", email: "angela@theoffice.com", id: "angela123", ab_tests: {test_remove_console: "verB", test_no_paywall: "verB"} },
-      ],
-      currentUser: null
+      currentUser: { name: "", email: "", user_id: "" }
     }
+
+    // AB test setup
+    if(localStorage.ab_test_name){ 
+      globalState.value.ab_test_name = localStorage.ab_test_name
+      globalState.value.ab_test_version = localStorage.ab_test_version
+    }else{
+      let num = Math.random() // returns 0 - 0.99
+      let version = num < 0.5 ? "control" : "new-version"
+      localStorage.ab_test_name = "add-data"
+      localStorage.ab_test_version = "add-data--"+version
+      globalState.value.ab_test_name = "add-data"
+      globalState.value.ab_test_version = "add-data--"+version
+
+    }
+    
+    
 
     provide('globalState', globalState)    
 

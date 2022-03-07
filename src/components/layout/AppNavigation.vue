@@ -46,9 +46,8 @@ import { NIcon, useMessage } from 'naive-ui'
 import { AlertCircleOutline, Analytics, AnalyticsOutline, 
 	AppsOutline, BarChartOutline, BookOutline as BookIcon, PersonOutline as PersonIcon, 
 	StarOutline, AddOutline, SearchCircleOutline,
-	FootstepsOutline, WineOutline as WineIcon, HardwareChipOutline} from '@vicons/ionicons5'
+	FootstepsOutline, WineOutline as WineIcon, HardwareChipOutline, CloudUploadOutline as CloudIcon} from '@vicons/ionicons5'
 import Breadcrumbs from './Breadcrumbs.vue'
-
 
 
 
@@ -56,7 +55,7 @@ function renderIcon (icon) {
   return () => h(NIcon, null, { default: () => h(icon) })
 }
 
-const menuOptions = [
+let menuOptions = [
   {
     label: 'Query & Explore',
     key: 'query-and-explore',
@@ -280,6 +279,7 @@ const menuOptions = [
 ]
 
 
+
 export default {
   components: { Breadcrumbs  },
     name: 'Sidebar',
@@ -289,7 +289,19 @@ export default {
     setup(){
         const router = useRouter()			
 		const eventsNotification = inject('eventsNotification');
+		const globalState = inject('globalState');
 		console.log('Sidebar Setup')
+
+
+		//AB test menu item
+		if(globalState.value.ab_test_version  == "add-data--control"){
+			menuOptions = menuOptions.concat([{
+				label: 'Add data (control)',
+				key: 'Add data',
+				pathName: 'AddData',
+				icon: renderIcon(CloudIcon)
+			}])
+		}
     
 
         return {
@@ -298,9 +310,6 @@ export default {
             menuOptions,
 			handleClick (a, b){
 
-				
-
-				
 			},
             handleUpdateValue (key, item){
 				const analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}

@@ -15,25 +15,21 @@
     Query...
   </p>
   
-
-  
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!-- <Header />
-    <Sidebar /> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-  
 </template>
 
 <script>
 
 
+
  export default {
   
     setup(){
-    //   console.log("Id props is "+props.id)
+
+
     },
     mounted(){
       console.log('Mounted: Query Builder')
+      console.log("Serving the ab test - "+localStorage.ab_test_version)
       // window.analytics.page('Visited Explore & Query')
     }
   }

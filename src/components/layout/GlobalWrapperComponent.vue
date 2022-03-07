@@ -3,7 +3,9 @@
   
   <div class="body-wrapper">
    
-    <AppHeader />            
+    <AppHeader />
+
+     <LoginModal v-if="isModalShown" :isModalShown="isModalShown" @closingloginmodal="handleclosing" />             
     
     <AppNavigation />              
     
@@ -15,23 +17,29 @@
 <script>
 
 import { useRoute } from 'vue-router';
-import { h, watch } from 'vue';
+import { h, watch, ref } from 'vue';
 import { useNotification, NAvatar } from "naive-ui";
 import { provide, inject } from 'vue';
 
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppNavigation from '@/components/layout/AppNavigation.vue'
-
+import LoginModal from '@/components/layout/LoginModal.vue'
 
 export default {
   name: 'GlobalWrapperComponent',
   components: {    
     AppHeader,
     AppNavigation,
+    LoginModal  
   },
   setup() {
     const route = useRoute();
-    
+    const isModalShown = ref(false) 
+
+    if(!localStorage.user_name || !localStorage.user_email || !localStorage.user_id ){
+      isModalShown.value = true
+    }
+
     console.debug(`current route name on component setup init: ${route.name}`);
 
   
@@ -71,8 +79,8 @@ export default {
           
     });
 
-    // Watch the route changes and log those Page events
-    watch(() => [globalState.value.currentUser], () => {
+    
+    watch(() => [globalState.value.currentUser.user_id], () => {
       console.log("Watch - globalState.value.currentUser changed")
       
       // https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/#identify
@@ -81,57 +89,31 @@ export default {
       // You can pass an integrations object in the options of Alias, Group, Identify, Page, and Track methods 
       // to send data to only the selected destinations. By default, all Destinations are enabled.
 
-      window.analytics.identify(globalState.value.currentUser.id, {
+      window.analytics.identify(globalState.value.currentUser.user_id, {
         name: globalState.value.currentUser.name,
         email:  globalState.value.currentUser.email,
-        ab_test: globalState.value.currentUser.ab_tests,
-      },{
-          integrations: {
-            "Actions Amplitude": {
-              session_id: 1644915970111
-            },"Amplitude": {
-              session_id: 1644915970111
-            }
-          }
+        ab_test_name: localStorage.ab_test_name,
+        ab_test_version: localStorage.ab_test_version
+
       });
 
       console.log("Identifying as")
-      console.log(globalState.value.currentUser.id)
+      console.log(globalState.value.currentUser.user_id)
       console.log(globalState.value.currentUser.name)
       console.log(globalState.value.currentUser.email)
-      console.log(globalState.value.currentUser.ab_tests)
+      console.log("AB test is "+localStorage.ab_test_name)
+      console.log("AB test version is "+localStorage.ab_test_version)
 
-      eventsNotification(`Special event "Identify"`, "This is the identify event provided by Segment that sets the userId and maps it to the anonymous id. User was identified as "+globalState.value.currentUser.id, "")
+      window.analytics.track('User Successfully Logged In')
 
-      window.analytics.track("User Logged In", {}, 
-        {
-          integrations: {
-            "Actions Amplitude": {
-              session_id: 1644915970111
-            },"Amplitude": {
-              session_id: 1644915970111
-            }
-          }
-      })
-
-      eventsNotification(`Event "User Logged In"`, "Logged in as "+globalState.value.currentUser.id, "")
-      
-
+      eventsNotification(`Special event "Identify" was fired`, "This is the identify event provided by Segment that sets the userId and maps it to the anonymous id. User was identified as "+globalState.value.currentUser.id+" and the AB TEST IS "+localStorage.ab_tests, "")
+      eventsNotification(`Event "User Logged In"`, "Logged in as "+globalState.value.currentUser.user_id, "")
       
     });
     
-    //As the app loads identify as the user[0]
-    globalState.value.currentUser = globalState.value.users[0]
-
-
-    
-    
-    return { route, eventsNotification };
+    return { route, eventsNotification, isModalShown };
 
   },
-
-
-  
 }
 
 

@@ -7,6 +7,7 @@ import DashboardShow from '../views/DashboardShow.vue'
 import Alerts from '../views/Alerts.vue'
 import QueryAndExplore from '../views/QueryAndExplore.vue'
 import Infrastructure from '../views/Infrastructure.vue'
+import AddData from '../views/AddData.vue'
 
 
 
@@ -44,6 +45,10 @@ const routes = [
     path: '/infrastructure',
     name: 'Infrastructure',
     component: Infrastructure
+  },{
+    path: '/add-data',
+    name: 'AddData',
+    component: AddData
   },
 
 ]
