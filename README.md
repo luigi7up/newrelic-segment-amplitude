@@ -15,6 +15,9 @@ Add this line `127.0.0.1 mylocalhost.com`
 
 and then start the server `yarn serve  --open --public mylocalhost.com --port 80` and go to the `mylocalhost.com:PORT`
 
+
+Everything pushed to the `MASTER` branch will automatically be deployed to `https://app.netlify.com/teams/luigi7up/overview`
+
 ### Compiles and minifies for production
 ```
 yarn build
