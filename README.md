@@ -17,7 +17,11 @@ In the terminal run `sudo vi /etc/hosts`
 
 Add this line `127.0.0.1 mylocalhost.com`
 
-Start the server `yarn serve  --open --public mylocalhost.com --port 80` and go to the `mylocalhost.com:PORT`
+Start the server 
+
+`yarn serve  --open --public mylocalhost.com --port 80` 
+
+and go to the `mylocalhost.com:PORT`
 
 
 
