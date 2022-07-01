@@ -103,6 +103,31 @@ export default {
       console.log(globalState.value.currentUser.email)
       console.log("AB test is "+localStorage.ab_test_name)
       console.log("AB test version is "+localStorage.ab_test_version)
+      
+      let groupId;
+      let groupName;
+      let groupTotalUsers;
+      let groupAssociatedAccounts;
+      
+      //Assign on euser group or the other depending on if the email starts with letters a-m or not
+      if(/^[a-m]/.test(globalState.value.currentUser.email)){
+        groupId = "a-12345"
+        groupName = "Dunder Miflin"
+        groupTotalUsers = 32
+        groupAssociatedAccounts = [111,222,333]
+      }else{
+        groupId = "b-12345"
+        groupName = "Starbucks"
+        groupTotalUsers = 11
+        groupAssociatedAccounts = [22,122,23]
+      }
+      
+      analytics.group(groupId, {
+        ORG_NAME: groupName,
+        ORG_TOTAL_USERS: groupTotalUsers,
+        ORG_ASSOCIATED_ACCOUNTS: groupAssociatedAccounts
+      });
+
 
       window.analytics.track('User Successfully Logged In')
 
