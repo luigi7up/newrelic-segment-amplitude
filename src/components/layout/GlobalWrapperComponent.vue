@@ -103,7 +103,7 @@ export default {
       console.log(globalState.value.currentUser.email)
       console.log("AB test is "+localStorage.ab_test_name)
       console.log("AB test version is "+localStorage.ab_test_version)
-      
+
       let groupId;
       let groupName;
       let groupTotalUsers;
@@ -128,6 +128,12 @@ export default {
         ORG_ASSOCIATED_ACCOUNTS: groupAssociatedAccounts
       });
 
+      console.log("Group identify as")
+
+      console.log("groupId "+groupId)
+      console.log("groupName "+groupName)
+      console.log("groupTotalUsers "+groupTotalUsers)
+      console.log("groupAssociatedAccounts "+groupAssociatedAccounts)
 
       window.analytics.track('User Successfully Logged In')
 
