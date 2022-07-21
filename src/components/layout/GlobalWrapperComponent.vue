@@ -138,7 +138,8 @@ export default {
       window.analytics.track('User Successfully Logged In')
 
       eventsNotification(`Special event "Identify" was fired`, "This is the identify event provided by Segment that sets the userId and maps it to the anonymous id. User was identified as "+globalState.value.currentUser.id+" and the AB TEST IS "+localStorage.ab_tests, "")
-      eventsNotification(`Event "User Logged In"`, "Logged in as "+globalState.value.currentUser.user_id, "")
+      eventsNotification(`Special event "Group" was fired`, "This is the group identify event provided by Segment that sets the userId and maps it to the anonymous id. User was identified as "+groupId, "")
+      eventsNotification(`Event "User Successfully Logged In"`, "Logged in as "+globalState.value.currentUser.user_id, "")
       
     });
     
