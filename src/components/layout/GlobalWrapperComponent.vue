@@ -96,16 +96,21 @@ export default {
       
       //Identify the user's group
       //Assign on euser group or the other depending on if the email starts with letters a-m or not
-      if(/^[a-m]/.test(globalState.value.currentUser.email)){
-        groupId = "a-12345"
-        groupName = "Dunder Miflin"
+      if(/^[a-g]/.test(globalState.value.currentUser.email)){
+        groupId = "org_1_id"
+        groupName = "Dunder Miflin org1"
         groupTotalUsers = 32
         groupAssociatedAccounts = [111,222,333]
-      }else{
-        groupId = "b-12345"
-        groupName = "Starbucks"
+      }else if(/^[h-o]/.test(globalState.value.currentUser.email)){
+        groupId = "org_2_id"
+        groupName = "Starbucks org2"
         groupTotalUsers = 11
         groupAssociatedAccounts = [22,122,23]
+      }else {
+        groupId = "org_3_id"
+        groupName = "Starbucks org3"
+        groupTotalUsers = 11
+        groupAssociatedAccounts = [20,9,1983]
       }
       
       analytics.group(groupId, {
