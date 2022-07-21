@@ -89,26 +89,12 @@ export default {
       // You can pass an integrations object in the options of Alias, Group, Identify, Page, and Track methods 
       // to send data to only the selected destinations. By default, all Destinations are enabled.
 
-      window.analytics.identify(globalState.value.currentUser.user_id, {
-        name: globalState.value.currentUser.name,
-        email:  globalState.value.currentUser.email,
-        ab_test_name: localStorage.ab_test_name,
-        ab_test_version: localStorage.ab_test_version
-
-      });
-
-      console.log("Identifying as")
-      console.log(globalState.value.currentUser.user_id)
-      console.log(globalState.value.currentUser.name)
-      console.log(globalState.value.currentUser.email)
-      console.log("AB test is "+localStorage.ab_test_name)
-      console.log("AB test version is "+localStorage.ab_test_version)
-
       let groupId;
       let groupName;
       let groupTotalUsers;
       let groupAssociatedAccounts;
       
+      //Identify the user's group
       //Assign on euser group or the other depending on if the email starts with letters a-m or not
       if(/^[a-m]/.test(globalState.value.currentUser.email)){
         groupId = "a-12345"
@@ -129,17 +115,35 @@ export default {
       });
 
       console.log("Group identify as")
+      eventsNotification(`Special event "Group" was fired`, "This is the group identify event provided by Segment that sets the userId and maps it to the anonymous id. User was identified as "+groupId, "")
 
       console.log("groupId "+groupId)
       console.log("groupName "+groupName)
       console.log("groupTotalUsers "+groupTotalUsers)
       console.log("groupAssociatedAccounts "+groupAssociatedAccounts)
 
-      window.analytics.track('User Successfully Logged In')
+      //Identify the user
+      window.analytics.identify(globalState.value.currentUser.user_id, {
+        name: globalState.value.currentUser.name,
+        email:  globalState.value.currentUser.email,
+        ab_test_name: localStorage.ab_test_name,
+        ab_test_version: localStorage.ab_test_version
 
+      });
+
+      console.log("Identifying as")
+      console.log(globalState.value.currentUser.user_id)
+      console.log(globalState.value.currentUser.name)
+      console.log(globalState.value.currentUser.email)
+      console.log("AB test is "+localStorage.ab_test_name)
+      console.log("AB test version is "+localStorage.ab_test_version)
       eventsNotification(`Special event "Identify" was fired`, "This is the identify event provided by Segment that sets the userId and maps it to the anonymous id. User was identified as "+globalState.value.currentUser.id+" and the AB TEST IS "+localStorage.ab_tests, "")
-      eventsNotification(`Special event "Group" was fired`, "This is the group identify event provided by Segment that sets the userId and maps it to the anonymous id. User was identified as "+groupId, "")
+
+      
+
+      window.analytics.track('User Successfully Logged In')
       eventsNotification(`Event "User Successfully Logged In"`, "Logged in as "+globalState.value.currentUser.user_id, "")
+
       
     });
     
