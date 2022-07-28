@@ -99,24 +99,40 @@ export default defineComponent({
 
       e.preventDefault();
 
-      let analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}
-      // console.dir(analyticsProps)
-        
-      analyticsProps['entityName'] = modelRef.value.name
-      analyticsProps['entityType'] = modelRef.value.type  
+      //TODO remove the path: and use Segment mapping context.page.path to add it to all events!
+      let analyticsProps = {
+					section: router.currentRoute.value.name,  
+					path: router.currentRoute.value.path,
+					event_type: "click",
+					ui_position: null,
+					target: e.currentTarget.textContent,
+					target_friendly: e.currentTarget.textContent,
+				}
 
-      window.analytics.track('User Clicked Login Button', analyticsProps)
-        eventsNotification(`Event "User Clicked Login Button"`, "Track: User Clicked Login Button", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
+      window.analytics.track('login/login_button clicked', analyticsProps)
+        eventsNotification(`Event "login/login_button clicked"`, "Track: login/login_button clicked", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
 
+      analyticsProps = {
+					section: router.currentRoute.value.name,  
+					path: router.currentRoute.value.path,
+					event_type: "validate",
+          msg: "",
+					ui_position: null,
+          target: null,
+					target_friendly: null,
+					
+				}
       if(!modelRef.value.name){
         message.error("Please provide a name");
-        window.analytics.track('User Failed To Login', analyticsProps)
-        eventsNotification(`Event "User Failed To Login"`, "Track: User Failed To Login", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
+        analyticsProps.msg = "Name wasn't provided"
+        window.analytics.track('login_validation failed', analyticsProps)
+        eventsNotification(`Event "login_validation failed"`, "Track: login_validation failed", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
 
       }else if(!modelRef.value.email){ 
         message.error("Please introduce your email");
-         window.analytics.track('User Failed To Login', analyticsProps)
-        eventsNotification(`Event "User Failed To Login"`, "Track: User Failed To Login", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
+        analyticsProps.msg = "Email wasn't provided"
+         window.analytics.track('login_validation failed', analyticsProps)
+        eventsNotification(`Event "login_validation failed"`, "Track: login_validation failed", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
       }else{
 
         message.success("Success. You have Logged in");

@@ -15,39 +15,39 @@ const routes = [
   
   {
     path: '/query-and-explore',
-    name: 'QueryAndExplore',
+    name: 'query_and_explore',
     component: QueryAndExplore
   },{
     path: '/',
-    name: 'SystemOverview',
+    name: 'system_overview_index',
     component: SystemOverview
   },{
     path: '/apm',
-    name: 'Apm',
+    name: 'apm_index',
     component: Apm
   },{
     path: '/dashboards/:id',
-    name: 'DashboardShow',
+    name: 'dashboard/dashboard',
     component: DashboardShow
   },{
     path: '/dashboards',
-    name: 'DashboardsIndex',
+    name: 'dashboards_index',
     component: Dashboards,
   },{
     path: '/logs',
-    name: 'Logs',
+    name: 'logs',
     component: Logs
   },{
     path: '/alerts',
-    name: 'Alerts',
+    name: 'alerts_index',
     component: Alerts
   },{
     path: '/infrastructure',
-    name: 'Infrastructure',
+    name: 'infrastructure_index',
     component: Infrastructure
   },{
     path: '/add-data',
-    name: 'AddData',
+    name: 'add_data_index',
     component: AddData
   },
 

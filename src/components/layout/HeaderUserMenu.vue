@@ -66,14 +66,23 @@ export default defineComponent({
       console.log("Clicked Dropdown")
     }
     
-    const handleButtonClick = ()=>{
-      const analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}
-      console.log("Clicked User Avatar" )
+    const handleButtonClick = (key, item)=>{
+
+      const analyticsProps = {
+					section: router.currentRoute.value.name,  
+					path: router.currentRoute.value.path,
+					event_type: "click",
+					ui_position: "header",
+					target: null,
+					target_friendly: null
+				}
+      
+      console.log("user_avatar clicked" )
       console.dir(analyticsProps)
       console.dir("Current user:")
       console.log(globalState.value.currentUser)
-      window.analytics.track('Clicked User Avatar', analyticsProps)
-      eventsNotification(`Event "Clicked User Avatar"`, "Track: Clicked User Avatar", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
+      window.analytics.track('user_avatar clicked', analyticsProps)
+      eventsNotification(`Event "user_avatar clicked"`, "Track: user_avatar clicked", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
     }
 
     const handleSelect = (key, item)=>{
@@ -82,11 +91,19 @@ export default defineComponent({
         isModalShown.value = true
       }
 
-      const analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path, optionSelected: key}
-      console.log("Selected User Menu Item" )
+      const analyticsProps = {
+					section: router.currentRoute.value.name,  
+					path: router.currentRoute.value.path,
+					event_type: "click",
+					ui_position: "header",
+					target: item.key,
+					target_friendly: item.label
+				}
+
+      console.log("user_menu_item clicked" )
       console.dir(analyticsProps)
-      window.analytics.track('Selected User Menu Item', analyticsProps)
-      eventsNotification(`Event "Selected User Menu Item"`, "Track: Selected User Menu Item", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
+      window.analytics.track('user_menu_item clicked', analyticsProps)
+      eventsNotification(`Event "user_menu_item clicked"`, "Track: user_menu_item clicked", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
     }
 
     const handleclosing = ()=>{

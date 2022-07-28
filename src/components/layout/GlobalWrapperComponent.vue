@@ -75,7 +75,7 @@ export default {
       // analytics.page([category], [name], [properties], [options], [callback]);
       // https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/#page
       window.analytics.page(route.name)
-      eventsNotification(`Event "Viewed ${route.name}"`, "Page event: Viewed "+route.name, "Segment.js logged an analytics.page() event that will show up in Amplitude as Viewed "+route.name, "")
+      eventsNotification(`Event "${route.name} viewed"`, "Page event: "+route.name+" viewed", "Segment.js logged an analytics.page() event that will show up in Amplitude as Viewed "+route.name, "")
           
     });
 
@@ -144,10 +144,10 @@ export default {
       console.log("AB test version is "+localStorage.ab_test_version)
       eventsNotification(`Special event "Identify" was fired`, "This is the identify event provided by Segment that sets the userId and maps it to the anonymous id. User was identified as "+globalState.value.currentUser.id+" and the AB TEST IS "+localStorage.ab_tests, "")
 
-      
+  
 
-      window.analytics.track('User Successfully Logged In')
-      eventsNotification(`Event "User Successfully Logged In"`, "Logged in as "+globalState.value.currentUser.user_id, "")
+      window.analytics.track('user logged_in')
+      eventsNotification(`Event "user logged_in"`, "Logged in as "+globalState.value.currentUser.user_id, "")
 
       
     });

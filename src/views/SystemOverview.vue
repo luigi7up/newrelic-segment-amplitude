@@ -45,13 +45,22 @@
 
       const showAddData = globalState.value.ab_test_version == "add-data--new-version" ? true : false
 
-      const handleAddDataClick = ()=>{
-        console.log("Clicked Add Data")
-        const analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}
+      const handleAddDataClick = (e)=>{
+        console.log("add_data_button clicked")
+        const analyticsProps = {
+					section: router.currentRoute.value.name,  
+					path: router.currentRoute.value.path,
+					event_type: null,
+					ui_position: null,
+          entity_name: modelRef.value.name,
+          entity_type: modelRef.value.type  ,
+          target: e.currentTarget.textContent,
+          target_friendly: e.currentTarget.textContent,
+				}
       
         console.dir(analyticsProps)
-        window.analytics.track('Clicked Add Data', analyticsProps)
-        eventsNotification(`Event "Clicked Add Data"`, "Track: Clicked Add Data", "Segment.js logged an analytics.track(), event that will show up in Amplitude as Clicked Add Data with these properties: "+ JSON.stringify(analyticsProps))
+        window.analytics.track('add_data_button clicked', analyticsProps)
+        eventsNotification(`Event "add_data_button clicked"`, "Track: add_data_button clicked", "Segment.js logged an analytics.track(), event that will show up in Amplitude as add_data_button clicked with these properties: "+ JSON.stringify(analyticsProps))
 
         router.push({ name: 'AddData'})
 

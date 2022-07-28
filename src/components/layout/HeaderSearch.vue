@@ -41,17 +41,24 @@
 
         const handleSearch = (e)=>{
 
-            let analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}
-            
+            let analyticsProps = {
+					section: router.currentRoute.value.name,  
+					path: router.currentRoute.value.path,
+					event_type: "click",
+					ui_position: "sidebar/main_menu",
+				}
+
             if(e.type=="focus"){
-                console.log("Focused the Search")
-                window.analytics.track('Focused The Search', analyticsProps)
-                eventsNotification(`Event "Focused The Search"`, "Track: Focused The Search", "Segment.js logged an analytics.track(), event that will show up in Amplitude as Focused The Search with these properties: "+ JSON.stringify(analyticsProps))
+                console.log("global_search_bar focused")
+                window.analytics.track('global_search_bar focused', analyticsProps)
+                eventsNotification(`Event "global_search_bar focused"`, "Track: global_search_bar focused", "Segment.js logged an analytics.track(), event that will show up in Amplitude as global_search_bar focused with these properties: "+ JSON.stringify(analyticsProps))
             }else{
                 console.log("Search performed: "+e)
-                analyticsProps = Object.assign(analyticsProps, {search_term: e});
-                window.analytics.track('User Performed Search', analyticsProps)
-                eventsNotification(`Event "User Performed Search"`, "Track: User Performed Search", "Segment.js logged an analytics.track(), event that will show up in Amplitude as User Performed Search with these properties: "+ JSON.stringify(analyticsProps))
+                analyticsProps = Object.assign(analyticsProps, {input_value: e});
+
+                window.analytics.track('global_search_bar submitted', analyticsProps)
+
+                eventsNotification(`Event "global_search_bar submitted"`, "Track: global_search_bar submitted", "Segment.js logged an analytics.track(), event that will show up in Amplitude as global_search_bar submitted with these properties: "+ JSON.stringify(analyticsProps))
                 
             }
             console.dir(analyticsProps)

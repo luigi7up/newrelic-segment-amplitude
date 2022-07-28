@@ -59,12 +59,12 @@ let menuOptions = [
   {
     label: 'Query & Explore',
     key: 'query-and-explore',
-	pathName: 'QueryAndExplore',
+	pathName: 'query_and_explore',
     icon: renderIcon(SearchCircleOutline)
   },{
     label: 'System overview',
     key: 'system-overview',
-		pathName: 'SystemOverview',
+		pathName: 'system_overview_index',
     icon: renderIcon(AppsOutline)
   },
 	{
@@ -75,7 +75,7 @@ let menuOptions = [
 			{
 				label: 'Dashboards overview',
 				key: 'dashboards',
-				pathName: 'DashboardsIndex',
+				pathName: 'dashboards_index',
 			},
 			{
 				type: 'group',
@@ -86,20 +86,20 @@ let menuOptions = [
 						label: 'Overall health',
 						key: 'Overall health',
 						icon: renderIcon(StarOutline),
-						pathName: 'DashboardShow',
+						pathName: 'dashboard/dashboard',
 						param: 'overall-health'
 					},
 					{
 						label: 'Backend services',
 						key: 'Backend services',
 						icon: renderIcon(StarOutline),
-						pathName: 'DashboardShow',
+						pathName: 'dashboard/dashboard',
 						param: 'backend-sevices'
 					},{
 						label: 'API endpoints',
 						key: 'API endpoints',
 						icon: renderIcon(StarOutline),
-						pathName: 'DashboardShow',
+						pathName: 'dashboard/dashboard',
 						param: 'api-endpoints'
 					}
 				]
@@ -137,7 +137,7 @@ let menuOptions = [
         {
             label: 'APM overview',
             key: 'apm',
-            pathName: 'Apm',
+            pathName: 'apm_index',
             // icon: renderIcon(AnalyticsOutline),
         },
         {
@@ -171,7 +171,7 @@ let menuOptions = [
 			{
 				label: 'All logs',
 				key: 'logs',
-				pathName: 'Logs',
+				pathName: 'logs',
 				icon: renderIcon(AnalyticsOutline),
 			},
 			{
@@ -201,13 +201,13 @@ let menuOptions = [
 	{
 		label: 'Alerts',
 		key: 'alerts',
-		pathName: 'Alerts',
+		pathName: 'alerts_index',
     	icon: renderIcon(AlertCircleOutline)
   },{
 	  
 		label: 'Infrastructure',
 		key: 'infrastructure',
-		pathName: 'Infrastructure',
+		pathName: 'infrastructure_index',
 		icon: renderIcon(HardwareChipOutline)
   },{
     label: 'More',
@@ -298,7 +298,7 @@ export default {
 			menuOptions = menuOptions.concat([{
 				label: 'Add data (control)',
 				key: 'Add data',
-				pathName: 'AddData',
+				pathName: 'add_data_index',
 				icon: renderIcon(CloudIcon)
 			}])
 		}
@@ -312,12 +312,21 @@ export default {
 
 			},
             handleUpdateValue (key, item){
-				const analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}
-				console.log("Clicked Main Menu Item" )
+
+				const analyticsProps = {
+					section: router.currentRoute.value.name,  
+					path: router.currentRoute.value.path,
+					event_type: "click",
+					ui_position: "sidebar/main_menu",
+					target: item.key,
+					target_friendly: item.label
+
+				}
+				console.log("main_menu_item clicked" )
 				console.dir(analyticsProps)
 				
-				window.analytics.track('Clicked Main Menu Item', analyticsProps)
-				eventsNotification(`Event "Clicked Main Menu Item"`, "Track: Clicked Main Menu Item", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
+				window.analytics.track('main_menu_item clicked', analyticsProps)
+				eventsNotification(`Event "main_menu_item clicked"`, "Track: main_menu_item clicked", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
 							
 				
 				if(item.param){

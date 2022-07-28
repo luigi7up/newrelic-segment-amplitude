@@ -80,7 +80,12 @@ import { useMessage } from "naive-ui";
       )
 
 
-      let analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}
+      let analyticsProps = {
+					section: router.currentRoute.value.name,  
+					path: router.currentRoute.value.path,
+					event_type: null,
+					ui_position: null,
+				}
 
 
       return {
@@ -94,26 +99,36 @@ import { useMessage } from "naive-ui";
         handleValidateButtonClick(e) {
           e.preventDefault();
 
-          // let analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}
           console.dir(analyticsProps)
             
-          analyticsProps['entityName'] = modelRef.value.name
-          analyticsProps['entityType'] = modelRef.value.type  
+          analyticsProps['entity_name'] = modelRef.value.name
+          analyticsProps['entity_type'] = modelRef.value.type  
+          analyticsProps['target'] = e.currentTarget.textContent
+          analyticsProps['target_friendly'] = e.currentTarget.textContent  
 
-          window.analytics.track('User Clicked Added Data', analyticsProps)
-            eventsNotification(`Event "User Clicked Added Data"`, "Track: User Clicked Added Data", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
+          window.analytics.track('add_data_form_button clicked', analyticsProps)
+            eventsNotification(`Event "add_data_form_button clicked"`, "Track: add_data_form_button clicked", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
 
           if(!modelRef.value.name){
             message.error("Please provide a name");
+            analyticsProps['event_type'] = "validation"
+            analyticsProps.msg = "Name wasn't provided"
+            window.analytics.track('add_data_validation failed', analyticsProps)
+            eventsNotification(`Event "add_data_validation failed"`, "Track: add_data_validation failed", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
 
           }else if(!modelRef.value.type){ 
             message.error("Please choose the type");
+            analyticsProps['event_type'] = "validation"
+            analyticsProps.msg = "Type wasn't provided"
+            window.analytics.track('add_data_validation failed', analyticsProps)
+            eventsNotification(`Event "add_data_validation failed"`, "Track: add_data_validation failed", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
           }else{
             message.success("Success. You have added your entity");
             
-
-            window.analytics.track('User Added Data', analyticsProps)
-            eventsNotification(`Event "User Added Data"`, "Track: User Added Data", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
+            analyticsProps['event_type'] = "response"
+            analyticsProps['msg'] = "Data successfully added"
+            window.analytics.track('add_data succeded', analyticsProps)
+            eventsNotification(`Event "add_data succeded"`, "Track: add_data succeded", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
               
           }
         }

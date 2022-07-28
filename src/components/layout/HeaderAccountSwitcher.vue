@@ -64,16 +64,23 @@ export default defineComponent({
         }
       ],
       currentAccount,
-      handleSelect (key) {
+      handleSelect (key, item) {
         message.info(`You switched to the account ${key}`)   
         currentAccount.value = key   
-      
-        const analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}
-        console.log("Clicked User Avatar" )
+
+        const analyticsProps = {
+					section: router.currentRoute.value.name,  
+					path: router.currentRoute.value.path,
+					event_type: "click",
+					ui_position: "sidebar/main_menu",
+					target: item.key,
+					target_friendly: item.label
+				}
+        
         console.dir(analyticsProps)
         
-        window.analytics.track('Switched The Account', analyticsProps)
-        eventsNotification(`Event User Switched The Account`, "Track: User Switched The Account", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
+        window.analytics.track('account changed', analyticsProps)
+        eventsNotification(`account changed`, "Track: account changed", "Segment.js logged an analytics.track() with these properties: "+ JSON.stringify(analyticsProps))
 
       }
     }

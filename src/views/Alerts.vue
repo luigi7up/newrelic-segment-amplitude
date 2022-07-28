@@ -39,13 +39,20 @@ import {inject} from 'vue'
       const eventsNotification = inject('eventsNotification');
       const router = useRouter()
 
-      const handleCreateAlertClick = ()=>{
-        console.log("Clicked Create an Alert")
-        const analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}
+      const handleCreateAlertClick = (e)=>{
+        console.log("alert_create_button clicked")
+        let analyticsProps = {
+					section: router.currentRoute.value.name,  
+					path: router.currentRoute.value.path,
+					event_type: "click",
+					ui_position: null,
+          target: e.currentTarget.textContent,
+          target_friendly: e.currentTarget.textContent,
+				}
       
         console.dir(analyticsProps)
-        window.analytics.track('Clicked Create an Alert', analyticsProps)
-        eventsNotification(`Event "Clicked Create an Alert"`, "Track: Clicked Create an Alert", "Segment.js logged an analytics.track(), event that will show up in Amplitude as Clicked Create Dashboard with these properties: "+ JSON.stringify(analyticsProps))
+        window.analytics.track('alert_create_button clicked', analyticsProps)
+        eventsNotification(`Event "alert_create_button clicked"`, "Track: alert_create_button clicked", "Segment.js logged an analytics.track(), event that will show up in Amplitude as Clicked Create Dashboard with these properties: "+ JSON.stringify(analyticsProps))
 
       }
       return {

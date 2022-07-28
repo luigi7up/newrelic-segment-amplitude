@@ -43,13 +43,21 @@
       const eventsNotification = inject('eventsNotification');
       const router = useRouter()
 
-      const handleCreateDashboardClick = ()=>{
+      const handleCreateDashboardClick = (e)=>{
         console.log("Clicked Create a New Dashboard")
-        const analyticsProps = {pathName: router.currentRoute.value.name,  path: router.currentRoute.value.path}
+        
+        let analyticsProps = {
+					section: router.currentRoute.value.name,  
+					path: router.currentRoute.value.path,
+					event_type: "click",
+					ui_position: "dashboard_index/top",
+          target: e.currentTarget.textContent,
+          target_friendly: e.currentTarget.textContent,
+				}
       
         console.dir(analyticsProps)
-        window.analytics.track('Clicked Create Dashboard', analyticsProps)
-        eventsNotification(`Event "Clicked Create Dashboard"`, "Track: Clicked Create Dashboard", "Segment.js logged an analytics.track(), event that will show up in Amplitude as Clicked Create Dashboard with these properties: "+ JSON.stringify(analyticsProps))
+        window.analytics.track('dashboard_create_button clicked', analyticsProps)
+        eventsNotification(`Event "dashboard_create_button clicked"`, "Track: dashboard_create_button clicked", "Segment.js logged an analytics.track(), event that will show up in Amplitude as dashboard_create_button clicked with these properties: "+ JSON.stringify(analyticsProps))
 
       }
       return {
