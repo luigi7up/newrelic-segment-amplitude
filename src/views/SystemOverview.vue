@@ -47,22 +47,22 @@
 
       const handleAddDataClick = (e)=>{
         console.log("add_data_button clicked")
+        
         const analyticsProps = {
 					section: router.currentRoute.value.name,  
 					path: router.currentRoute.value.path,
-					event_type: null,
-					ui_position: null,
-          entity_name: modelRef.value.name,
-          entity_type: modelRef.value.type  ,
+					event_type: "click",
+					ui_position: "top-ofsystem-overview",
           target: e.currentTarget.textContent,
           target_friendly: e.currentTarget.textContent,
 				}
       
         console.dir(analyticsProps)
         window.analytics.track('add_data_button clicked', analyticsProps)
+        
         eventsNotification(`Event "add_data_button clicked"`, "Track: add_data_button clicked", "Segment.js logged an analytics.track(), event that will show up in Amplitude as add_data_button clicked with these properties: "+ JSON.stringify(analyticsProps))
 
-        router.push({ name: 'AddData'})
+        router.push({ name: 'add_data_index'})
 
       }
       return {

@@ -11,14 +11,6 @@
        @keydown.enter.prevent 
        @input="handleNameInput" />
     </n-form-item>
-    
-    
-    
-    <!-- <n-form-item path="type" label="Entity type">
-      <n-input
-        v-model:value="model.type"
-        type="text"/>
-    </n-form-item> -->
 
     <n-form-item path="type" label="Entity type">
       <n-select
@@ -91,7 +83,6 @@ import { useMessage } from "naive-ui";
       return {
         formRef,
         generalOptions,
-
         model: modelRef,
         handleNameInput() {
           

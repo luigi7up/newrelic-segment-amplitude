@@ -315,11 +315,11 @@ export default {
 
 				const analyticsProps = {
 					section: router.currentRoute.value.name,  
-					path: router.currentRoute.value.path,
 					event_type: "click",
 					ui_position: "sidebar/main_menu",
 					target: item.key,
 					target_friendly: item.label
+					
 
 				}
 				console.log("main_menu_item clicked" )

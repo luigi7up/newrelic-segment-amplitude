@@ -71,10 +71,9 @@ export default {
       console.log('Route Name Changed: '+route.name)
       console.log('Route Params:' )
       console.dir(route.params)
-      //All .page() events will show up with the name prefixed with "Viewed" in Amplitude
-      // analytics.page([category], [name], [properties], [options], [callback]);
-      // https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/#page
-      window.analytics.page(route.name)
+      // All .page() events will show up with the suffix "viewed" in Amplitude because of the mapping
+      // setup in Segment
+      window.analytics.page(route.name, {section: route.name, event_type: "view"})
       eventsNotification(`Event "${route.name} viewed"`, "Page event: "+route.name+" viewed", "Segment.js logged an analytics.page() event that will show up in Amplitude as Viewed "+route.name, "")
           
     });

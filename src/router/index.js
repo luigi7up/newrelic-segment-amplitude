@@ -12,7 +12,6 @@ import AddData from '../views/AddData.vue'
 
 
 const routes = [
-  
   {
     path: '/query-and-explore',
     name: 'query_and_explore',

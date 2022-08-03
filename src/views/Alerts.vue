@@ -54,6 +54,7 @@ import {inject} from 'vue'
         window.analytics.track('alert_create_button clicked', analyticsProps)
         eventsNotification(`Event "alert_create_button clicked"`, "Track: alert_create_button clicked", "Segment.js logged an analytics.track(), event that will show up in Amplitude as Clicked Create Dashboard with these properties: "+ JSON.stringify(analyticsProps))
 
+
       }
       return {
         router, handleCreateAlertClick
